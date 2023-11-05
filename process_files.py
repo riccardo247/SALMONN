@@ -49,7 +49,7 @@ for root, _, files in os.walk(wav_base_dir):
     path_parts = root.split(os.path.sep)
     
     # Check if the directory structure is valid (name/name structure)
-    if len(path_parts) >= 3 and path_parts[-1] == path_parts[-2]:
+    if path_parts[-1] == "voice_clean":
         for file_name in files:
             if file_name.endswith(".wav"):
                 wav_file_path = os.path.join(root, file_name)
@@ -58,7 +58,7 @@ for root, _, files in os.walk(wav_base_dir):
                 except Exception as e:
                   text = ""
                 # Create a directory for the TXT files (if not exists)
-                txt_dir = os.path.join(root + "_voicetxt")
+                txt_dir = os.path.join(os.path.sep.join(path_parts[:-1]), f"{file_name}_voicetxt")
                 os.makedirs(txt_dir, exist_ok=True)
 
                 # Construct the output TXT file path
