@@ -2,8 +2,7 @@ import os
 import subprocess
 #from AudioDB.ProcessAudio import EngineSteam
 # Specify the base directory path
-base_path = "/content/audio/"
-output_path = "/content/file_list.txt"
+
 # Create an empty dictionary to store WAV files and their corresponding directory structure
 wav_files = {}
 #es = EngineSteam()
@@ -63,7 +62,7 @@ def find_wav_files(directory, prefix=""):
               wav_files[txt_file_path] = (wav_file_path ,prefix + root)
 
 
-def main():
+def main(base_path, output_path):
   # Call the function to search for WAV files and associate them with TXT files
   find_wav_files(base_path)
   print(f"found {len(wav_files)} chunk files")
@@ -75,4 +74,9 @@ def main():
         #print("TXT File:", txt_file)
       
 if __name__ == '__main__':
-    main()
+    if len(sys.argv) == 3:
+        base_path = sys.argv[1]
+        output_path = sys.argv[2]
+        main(base_path, output_path)
+    else:
+       print("required base_path (audio files /finetune/audio ) and output_path (output for txt file /finetune)")
